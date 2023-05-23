@@ -90,6 +90,15 @@ Remove the following packages from all dependencies (the SDKs) and try again:
 Data.Access
 Service.Base
 
+### Error (POSTGRESQL):
+[42703] ERROR: column "name_of_some_cte" does not exist
+#### Solution
+Don't try to use ctes like variables
+You have to
+```sql
+SELECT * FROM cte
+```
+
 ### Postgres Scripts
 #### When you want to search for a field in json:
 ```sql
@@ -137,6 +146,17 @@ SDK models should have enums as strings.
 Enums should also be in the SDK, but the model itself will not use them, it's just
 for reference.
 
+### PR Reviews
+#### PRs in the Query Service
+- Make sure there is a `GRANT` for `queries_search`. Should be either `EXECUTE` (on functions) or `select, insert, update, delete` on tables.
+
+#### `OrdinalIgnoreCase` or `InvariantCultureIgnoreCase`?
+[According to Doug](https://github.com/LegalShield/atlas-entitlements-reader/pull/103#discussion_r1170188702),
+> https://stackoverflow.com/questions/492799/difference-between-invariantculture-and-ordinal-string-comparison
+>
+> Usually ordinal is what we want.
+
+
 #### Danny's General Thoughts on Service Models and SDK models:
 1. The noun service should have the Resource version which inherits AuditableBase
 2. The SDK should have a non-resource version which pulls the AuditableBase fields into the class but does not have a dependency on the Resource.
@@ -169,6 +189,11 @@ Service/SDK changes may break readers! Regression testing for calling readers wi
 
 ### Constants in C# should be `UPPERCASE_SNAKE_CASE`
 
+### Scripting For Loop
+```sh
+for i in {1..10}; do LS_ENV=uat npm run test; done;
+```
+
 ### Reattach logs to a running container:
 ```sh
 docker-compose logs <service name from docker-compose.yml> -f
@@ -199,7 +224,9 @@ Try looking in the `package.json` for the SDK you want to pull in.
 
 ### dotnet commands:
 Want to create a local nuget package for an SDK? This command puts it in the global packages folder
+```sh
 dotnet pack -c Release -o ../../local\ nuget
+```
 
 ### Database weirdness
 | What you are looking for | Name |
