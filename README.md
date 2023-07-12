@@ -90,6 +90,12 @@ Remove the following packages from all dependencies (the SDKs) and try again:
 Data.Access
 Service.Base
 
+### Error (from queries service):
+`Resource not found with id An unknown query service method was referenced`
+
+#### Solution:
+Verify Queries.json has the method, and that `"enabled": true,`
+
 ### Error (POSTGRESQL):
 [42703] ERROR: column "name_of_some_cte" does not exist
 #### Solution
@@ -188,10 +194,21 @@ Service/SDK changes may break readers! Regression testing for calling readers wi
 > -- Danny
 
 ### Constants in C# should be `UPPERCASE_SNAKE_CASE`
+[per Danny](https://github.com/LegalShield/atlas-associate-agreements-service/pull/57#discussion_r1259923655)
 
 ### Scripting For Loop
 ```sh
 for i in {1..10}; do LS_ENV=uat npm run test; done;
+```
+
+### Base64 encoding and decoding in node locally
+#### Encode
+```sh
+Buffer.from('string-to-encode').toString('base64');
+```
+#### Decode
+```sh
+Buffer.from(base64String, 'base64').toString('utf-8');
 ```
 
 ### Reattach logs to a running container:
@@ -248,6 +265,8 @@ dotnet pack -c Release -o ../../local\ nuget
 |42P01|undefined_table|Verify that the table exists|
 |3D000|invalid_catalog_name|Verify that the database exists|
 |42501|insufficient_privilege|Add grants (see entitlement service database.sql)|
+|23505|unique_violation|Verify that records are not being created with duplicate keys that should be unique|
+|42703|undefined_column|Verify the column to which data is being added exists|
 
 ### Acronyms:
 
@@ -255,3 +274,4 @@ dotnet pack -c Release -o ../../local\ nuget
 | --- | --- |
 |PDC|Product Development Committee|
 |ET|Executive Team|
+|OCE|Office of the Chief Executive|
