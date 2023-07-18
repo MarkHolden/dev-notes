@@ -20,6 +20,12 @@ Everything I have ever learned (or at least things I need written down because I
 change the `.eslintrc.js` file a(n) `.eslintrc.json` file. Ie. Entitlements Service.
 
 ### Error:
+Exception was: "System.Exception: Error loading journal records - http://{some-service}/v1/accountUpdate/journal?clock=1&limit=10, response was , statusCode was Unauthorized
+
+#### Solution:
+Make sure the Reader config `journalUrl` is https for non-local envs.
+
+### Error:
 Oh Shit, I ran `docker-compose down`, and all my databases got deleted.
 #### Solution:
 Run the database scripts for those databases - you MUST select the right database on which
@@ -35,6 +41,12 @@ Verify the appsettings.json has `ENV = local`
 Getting a 401 in a service running in docker, and 400 in the identities service (in docker), 401 in the factors service
 #### Solution:
 ?
+
+### Error:
+Getting a DenyAnonymousAuthorizationRequirement
+
+#### Solution:
+Make sure your `Authorization` header has `sso-jwt` prefix before the token.
 
 ### Error:
 localhost:3500 isn't working as a url in the reader config or in a call within the docker container
@@ -104,6 +116,14 @@ You have to
 ```sql
 SELECT * FROM cte
 ```
+
+### Error "Cannot Assign Requested Address"
+```
+Npgsql.NpgsqlException (0x80004005): Exception while connecting
+ ---> System.Net.Internals.SocketExceptionFactory+ExtendedSocketException (99): Cannot assign requested address [::1]:5400
+```
+#### Solution
+?
 
 ### Postgres Scripts
 #### When you want to search for a field in json:
