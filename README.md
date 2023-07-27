@@ -125,6 +125,13 @@ Npgsql.NpgsqlException (0x80004005): Exception while connecting
 #### Solution
 ?
 
+### Error 500 on journal endpoint:
+Service throwing a serialization error on the /{noun}/journal?clock=1&limit=10 (or similar) request.
+
+#### Solution:
+There is most likely some field on an early version of the resource that is not compatible with the current model
+Get the latest clock and set that value in the clock table on the reader.
+
 ### Postgres Scripts
 #### When you want to search for a field in json:
 ```sql
@@ -159,18 +166,15 @@ SELECT m."Resource"
 
 ### Service models and SDK Models:
 #### Service Models
-The service model allows you to add things like data conversion methods and extend the
-AuditableBase without needing to hide fields.
-Put custom methods on the service model, ie. HydrateAuditData().
-Service model is also the one that extends AuditableBase.
+- The service model allows you to add things like data conversion methods and extend the AuditableBase without needing to hide fields.
+- Put custom methods on the service model, ie. HydrateAuditData().
+- Service model is also the one that extends AuditableBase.
 
 #### SDK Models
-The SDK models should be POCOs.
-The service should use SDK models when it can to prevent duplication, but not at the
-expense of encapsulation.
-SDK models should have enums as strings.
-Enums should also be in the SDK, but the model itself will not use them, it's just
-for reference.
+- The SDK models should be POCOs.
+- The service should use SDK models when it can to prevent duplication, but not at the expense of encapsulation.
+- SDK models should have enums as strings.
+- Enums should also be in the SDK, but the model itself will not use them, it's just for reference.
 
 ### PR Reviews
 #### PRs in the Query Service
@@ -257,7 +261,7 @@ git config --get pull.rebase # should be false.
 ```
 
 ### Can't find the npm package name?
-Try looking in the `package.json` for the SDK you want to pull in.
+Try looking in the `package.json` in the SDK you want to pull in.
 
 ### Setting up a Local Nuget:
 Want to create a local nuget package for an SDK? This command puts it in the global packages folder
