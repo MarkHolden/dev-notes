@@ -259,11 +259,22 @@ git config --get pull.rebase # should be false.
 ### Can't find the npm package name?
 Try looking in the `package.json` for the SDK you want to pull in.
 
-### dotnet commands:
+### Setting up a Local Nuget:
 Want to create a local nuget package for an SDK? This command puts it in the global packages folder
 ```sh
 dotnet pack -c Release -o ../../local\ nuget
 ```
+From there, you can just add this in your Nuget Config:
+```xml
+<add key="local" value="/Users/holdenms/dev/local nuget/"/>
+```
+Now you can build locally and nuget will be able to find the local packages!
+But wait! It's failling when I try to build in Docker!
+Yes, that is because the Docker context doesn't have your local machine paths available. You can either go figure out how to give docker access to a volume on your local, or you can do it the easy way:
+- add a `/nuget` (or whatever) folder in the repo in which you are working
+- update the nuget.config to have `value="./nuget"` (or whatever)
+- copy the .nuget package from your `/local nuget` folder into the `/nuget` folder in the repo
+- works!
 
 ### Database weirdness
 | What you are looking for | Name |
