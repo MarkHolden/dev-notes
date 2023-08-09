@@ -137,6 +137,16 @@ You can [create a partner identity](https://identities.api.legalshield.com/swagg
 
 
 ### Postgres Scripts
+In the queries database:
+p.resource -> 'bankAccount' returns jsonb. you don't need to use a double arrow and then cast back to jsonb
+
+-> returns jsonb
+->> returns text
+
+In our service, resource is text. so you have to do something like "Resource"::jsonb -> 'bankAccount' ->> 'vendorId' to get the same result there
+but we store as jsonb in the data pond so json lookups are only mildly painful
+
+
 #### When you want to search for a field in json:
 ```sql
 SELECT t.*
