@@ -132,6 +132,10 @@ Service throwing a serialization error on the /{noun}/journal?clock=1&limit=10 (
 There is most likely some field on an early version of the resource that is not compatible with the current model
 Get the latest clock and set that value in the clock table on the reader.
 
+### Need a partner login?
+You can [create a partner identity](https://identities.api.legalshield.com/swagger/index.html#/Identities/Identities_CreateIdentity) by passing in Partner as your realm and you can do username/password
+
+
 ### Postgres Scripts
 #### When you want to search for a field in json:
 ```sql
