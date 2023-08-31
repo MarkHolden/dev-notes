@@ -145,13 +145,13 @@ You can [create a partner identity](https://identities.api.legalshield.com/swagg
 
 ### Postgres Scripts
 In the queries database:
-p.resource -> 'bankAccount' returns jsonb. you don't need to use a double arrow and then cast back to jsonb
 
--> returns jsonb
-->> returns text
+`p.resource -> 'bankAccount'` returns jsonb. you don't need to use a double arrow and then cast back to jsonb
+- `-> returns jsonb`
+- `->> returns text`
 
-In our service, resource is text. so you have to do something like "Resource"::jsonb -> 'bankAccount' ->> 'vendorId' to get the same result there
-but we store as jsonb in the data pond so json lookups are only mildly painful
+In our service, resource is text. so you have to do something like `"Resource"::jsonb -> 'bankAccount' ->> 'vendorId'` to get the same result there.
+We store `Resource` as jsonb in the data pond so json lookups are only mildly painful
 
 
 #### When you want to search for a field in json:
@@ -240,6 +240,15 @@ Service/SDK changes may break readers! Regression testing for calling readers wi
 
 ### Constants in C# should be `UPPERCASE_SNAKE_CASE`
 [per Danny](https://github.com/LegalShield/atlas-associate-agreements-service/pull/57#discussion_r1259923655)
+
+### Don't use Newtonsoft.Json, use System.Text.Json
+> [what is this. no.](https://github.com/LegalShield/atlas-provision-service/pull/140#discussion_r1290459030) - Danny
+
+### Exceptions
+[Microsoft Best Practices](https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
+
+[Don't Throw base `Exception`](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/creating-and-throwing-exceptions#:~:text=Don%27t%20throw%20System.Exception%2C%20System.SystemException%2C%20System.NullReferenceException%2C%20or%20System.IndexOutOfRangeException%20intentionally%20from%20your%20own%20source%20code.)
+
 
 ### Scripting For Loop
 ```sh
