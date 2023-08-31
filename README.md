@@ -132,6 +132,13 @@ Service throwing a serialization error on the /{noun}/journal?clock=1&limit=10 (
 There is most likely some field on an early version of the resource that is not compatible with the current model
 Get the latest clock and set that value in the clock table on the reader.
 
+### Error
+System.MissingMethodException: Method not found: 'Void Atlas.Service.Errors.Exceptions.AtlasException..ctor
+
+#### Solution
+In a reader, bump Products.JournalReader.Library package to 4.0.5 (version 4.0.3 throws this error)
+In a service, Mike updated to the DAL and the problem went away - possibly the fix?
+
 ### Need a partner login?
 You can [create a partner identity](https://identities.api.legalshield.com/swagger/index.html#/Identities/Identities_CreateIdentity) by passing in Partner as your realm and you can do username/password
 
