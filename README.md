@@ -285,6 +285,17 @@ Nullable reference types: disable
 
 Member migrations - check the price
 
+### docker builds for .net 3.1 are slower than a <something-ridiculously-slow> on macintosh m1
+In the Dockerfile, change the sdk to:
+```dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:3.1-bullseye-arm64v8 AS build-env
+```
+ and change the runtime to:
+```dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-bullseye-slim-arm64v8 AS build-env
+```
+it will run a hundred times faster
+
 ### git merge strategy:
 ```sh
 git config --get pull.rebase # should be false.
