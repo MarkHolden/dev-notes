@@ -300,6 +300,10 @@ it will run a hundred times faster
 ```sh
 git config --get pull.rebase # should be false.
 ```
+if it's not, run
+```sh
+git config pull.rebase false
+```
 
 ### Can't find the npm package name?
 Try looking in the `package.json` in the SDK you want to pull in.
